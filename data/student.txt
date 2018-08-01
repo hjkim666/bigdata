@@ -1,0 +1,4 @@
+John	18	4.0F
+Mary	19	3.8F
+Bill	20	3.9F
+Joe	18	3.8F
