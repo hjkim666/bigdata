@@ -1,0 +1,10 @@
+SELECT movieid, SUM(rating)/COUNT(*) cnt  FROM u_data
+GROUP BY movieid 
+ORDER BY cnt DESC
+LIMIT 30; 
+
+
+SELECT movieid, AVG(rating) cnt  FROM u_data
+GROUP BY movieid 
+ORDER BY cnt DESC
+LIMIT 30; 

@@ -1,0 +1,102 @@
+##user id | age | gender | occupation | zip code
+##u.user 
+
+DROP TABLE u_user;
+CREATE TABLE u_user (
+  userid INT,
+  age INT,
+  gender STRING,
+  occupation STRING,
+  zipcode STRING
+)
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY '|'
+STORED AS TEXTFILE;
+
+
+LOAD DATA LOCAL INPATH '/home/hadoop/Downloads/example/ml-100k/u.user'
+OVERWRITE INTO TABLE u_user;
+
+DROP TABLE u_item;
+CREATE TABLE u_item (
+movieid INT, 
+movietitle STRING, 
+releasedate STRING, 
+videoreleasedate STRING,
+IMDbURL STRING,
+unknown STRING,
+Action INT,
+Adventure INT,
+Animation INT,
+Childrens INT,
+Comedy INT,
+Crime INT,
+Documentary INT,
+Drama INT,
+Fantasy INT,
+FilmNoir INT,
+Horror INT,
+Musical INT,
+Mystery INT,
+Romance INT,
+SciFi INT,
+Thriller INT,
+War INT,
+Western INT
+)
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY '|'
+STORED AS TEXTFILE;
+
+
+
+LOAD DATA LOCAL INPATH '/home/hadoop/Downloads/example/ml-100k/u.item'
+OVERWRITE INTO TABLE u_item;
+
+
+
+
+INSERT OVERWRITE LOCAL DIRECTORY '/home/hadoop/examples/result' 
+SELECT * FROM u_item i,
+(
+SELECT movieid, AVG(rating) cnt FROM u_DATA
+GROUP BY movieid 
+having AVG(rating) > 4.5 
+) a 
+where i.movieid = a.movieid
+
+
+
+<가장 높은 평점을 받은 영화 제목은?> 
+SELECT movietitle FROM u_item i,
+(
+SELECT movieid, AVG(rating) cnt FROM u_data
+GROUP BY movieid 
+having AVG(rating) > 4.5 
+) a 
+where i.movieid = a.movieid;
+
+
+<평균평점 5.0인 영화에 투표한 사람들목록 >
+select * from 
+( 
+  SELECT userid 
+  FROM u_data d JOIN 
+     (SELECT movieid, AVG(rating) cnt FROM u_data
+      GROUP BY movieid 
+      having AVG(rating) = 5.0 ) a 
+      ON (d.movieid = a.movieid) 
+)uid 
+JOIN u_user uu ON (uid.userid = uu.userid);
+
+<평균평점 5.0인 영화에 투표한 사람들의 평균연령 >
+select AVG(age) from 
+( 
+SELECT userid 
+FROM u_data d JOIN 
+( SELECT movieid, AVG(rating) cnt FROM u_data
+  GROUP BY movieid 
+  having AVG(rating) = 5.0 ) a 
+ON (d.movieid = a.movieid) 
+) uid 
+JOIN u_user uu ON (uid.userid = uu.userid);
