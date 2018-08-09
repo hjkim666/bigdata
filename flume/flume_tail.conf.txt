@@ -1,0 +1,15 @@
+agent.sources = s1
+agent.channels = c1
+agent.sinks = k1
+
+agent.sources.s1.type = exec
+agent.sources.s1.command = tail -F /home/hadoop/flume/test.csv
+
+agent.sources.s1.channels = c1
+
+agent.sinks.k1.type = logger
+
+agent.sinks.k1.channel = c1
+
+agent.channels.c1.type = memory
+agent.channels.c1.capacity = 100

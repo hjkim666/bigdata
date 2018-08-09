@@ -1,0 +1,1 @@
+bin/sqoop  import   --connect jdbc:mysql://hadoop01:3306/sakila  --table city  --username root --password hadoop  -m  1   --target-dir /user/sqoop/city

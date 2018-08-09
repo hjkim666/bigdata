@@ -1,0 +1,12 @@
+1) 테이블생성
+테이블명 : mytable 
+컬럼페밀리명 : cf 
+
+2)데이터 입력
+rowkey  first  , cf:message 의 값 : hello
+rowkey  sencond ,  cf:foo 의 값 : 0 
+rowkey  third ,  cf:bar 의 값 : 3.14
+
+3) 값 출력
+rowkey first 의 값은?
+  

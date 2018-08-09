@@ -1,0 +1,12 @@
+wget http://downloads.mysql.com/docs/sakila-db.tar.gz
+tar xvzf sakila-db.tar.gz 
+
+yum  install mysql-connector-java 
+cp  /usr/share/java/mysql-connector-java.jar /home/hadoop/sqoop/lib
+
+mysql -uroot -p
+
+source sakila-schema.sql 
+source sakila-data.sql
+show databases; 
+exit; 
