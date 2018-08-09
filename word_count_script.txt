@@ -1,0 +1,17 @@
+CREATE TABLE docs (line STRING);
+LOAD DATA INPATH '/input/README.txt' OVERWRITE INTO TABLE docs;
+
+CREATE TABLE word_counts AS
+SELECT word, count(1) count FROM 
+  (SELECT explode(split(line, '\\s')) word FROM docs) w
+GROUP BY word
+ORDER BY word; 
+
+hive> select * from word_counts;  (결과 확인)
+
+
+
+
+SELECT word, count(*) count FROM 
+  (SELECT explode(split(line, '\\s')) word FROM docs) w
+GROUP BY word
