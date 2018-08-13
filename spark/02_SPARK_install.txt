@@ -17,7 +17,15 @@ vi yarn-site.xml
     <value>false</value>
 </property>
 
- -----------------------------------------------------------
-cp $SPARK_HOME/conf/spark-defaults.conf.template $SPARK_HOME/conf/spark-defaults.conf
+-----------------------------------------------------------
+cd /home/hadoop/spark 
+cp conf/spark-defaults.conf.template  conf/spark-defaults.conf
 spark.master    yarn
 spark.driver.memory    512m
+spark.yarn.archive       hdfs:///user/hadoop/spark-libs.jar
+
+#스파크 jar 파일 하둡에 공유
+$ cd 
+$ jar cv0f spark-libs.jar -C   spark/jars/   .
+$ hdfs dfs -put spark-libs.jar 
+$ hdfs dfs -setrep -w 3  hdfs:///user/hadoop/spark-libs.jar
