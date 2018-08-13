@@ -1,0 +1,23 @@
+vi .bash_profile 
+
+export YARN_CONF_DIR=$HADOOP_HOME/etc/hadoop
+export HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop
+export LD_LIBRARY_PATH=/home/hadoop/hadoop/lib/native:$LD_LIBRARY_PATH
+export SPARK_HOME=/home/hadoop/spark
+export PATH=$PATH:$SPARK_HOME/bin
+
+vi yarn-site.xml
+<property>
+    <name>yarn.nodemanager.pmem-check-enabled</name>
+    <value>false</value>
+</property>
+
+<property>
+    <name>yarn.nodemanager.vmem-check-enabled</name>
+    <value>false</value>
+</property>
+
+ -----------------------------------------------------------
+cp $SPARK_HOME/conf/spark-defaults.conf.template $SPARK_HOME/conf/spark-defaults.conf
+spark.master    yarn
+spark.driver.memory    512m
