@@ -1,0 +1,30 @@
+새로운버젼 압축해제 
+tar xvzf hadoop-2.8.0.tar.gz 
+
+이전버전 삭제(3대)  
+rm -rf hadoop-2.8.4 
+
+폴더전송
+scp -rp hadoop-2.8.0  hadoop@hadoop02:/home/hadoop
+scp -rp hadoop-2.8.0  hadoop@hadoop03:/home/hadoop
+
+심볼릭링크 
+ln -s /home/hadoop/hadoop-2.8.0  /home/hadoop/hadoop
+
+네임노드의 디렉토리 생성 및 포멧 
+rm -rf /home/hadoop/yarn_data
+mkdir -p /home/hadoop/yarn_data/hdfs/namenode
+mkdir -p /home/hadoop/yarn_data/hdfs/datanode
+
+cd /home/hadoop/hadoop/bin
+hdfs namenode -format
+
+cd /home/hadoop/hadoop/sbin
+./start-dfs.sh
+./start-yarn.sh
+
+참고> 다른서버로 파일 전송
+$ cd /home/hadoop/hadoop/etc/hadoop 
+$scp  *  hadoop@hadoop02:/home/hadoop/hadoop/etc/hadoop/.
+$scp  *  hadoop@hadoop03:/home/hadoop/hadoop/etc/hadoop/.
+
