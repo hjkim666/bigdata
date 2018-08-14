@@ -1,0 +1,11 @@
+sudo yum install R
+sudo yum install epel-release 
+
+sudo yum groupinstall "Development Tools"
+sudo yum update 
+
+wget https://download2.rstudio.org/rstudio-server-rhel-1.0.44-x86_64.rpm
+sudo yum install  --nogpgcheck rstudio-server-rhel-1.0.44-x86_64.rpm
+systemctl status rstudio-server.service
+
+ 
