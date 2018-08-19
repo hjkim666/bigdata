@@ -1,0 +1,13 @@
+https://github.com/databricks/learning-spark
+
+scala 5분만에 배우기 
+https://learnxinyminutes.com/docs/scala/
+
+coursera scala 강의 
+https://www.coursera.org/learn/progfun1
+
+scala 배우기(블로그) 
+http://joelabrahamsson.com/learning-scala/
+
+scala school(트위터) 
+http://twitter.github.io/scala_school/ko/
