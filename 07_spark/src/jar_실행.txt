@@ -1,0 +1,1 @@
+spark-submit  --master  spark://hadoop01:7077  --class   edu.jaen.spark.First   /home/hadoop/example/wordcount2-uber-1.0-SNAPSHOT.jar
