@@ -1,0 +1,7 @@
+$ nc  -lk  9999 
+
+--------------------------------------
+spark-submit --master local[*]   --class   edu.jaen.spark.StreamingFirst   /home/hadoop/example/wordcount2-uber-1.0-SNAPSHOT.jar
+spark-submit --master  spark://hadoop01:7077  --class   edu.jaen.spark.StreamingFirst   /home/hadoop/example/wordcount2-uber-1.0-SNAPSHOT.jar
+
+
