@@ -1,0 +1,14 @@
+SPARK_HOME_DIR <- "/home/hadoop/spark"
+Sys.setenv(SPARK_HOME=SPARK_HOME_DIR)
+.libPaths(c(file.path(Sys.getenv("SPARK_HOME"), "R", "lib"), .libPaths()))
+library(SparkR)
+#spark <- sparkR.session(master="local[*]")
+spark <- sparkR.session(master="spark://hadoop01:7077")
+
+# Sample Spark Program
+path <- file.path("file:/",Sys.getenv("SPARK_HOME"), "examples/src/main/resources/people.json")
+people <- read.json(path)
+createOrReplaceTempView(people, "people")
+teenagers <- sql("SELECT age, name FROM people WHERE age >= 13 AND age <= 19")
+teenagersLocalDF <- collect(teenagers)
+print(teenagersLocalDF)
