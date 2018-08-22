@@ -1,0 +1,32 @@
+﻿$ bin/spark-sql
+
+CREATE TEMPORARY TABLE  test
+USING org.apache.spark.sql.json  
+OPTIONS
+(path "spark/examples/src/main/resources/people.json"); 
+
+CREATE TEMPORARY TABLE  test
+USING org.apache.spark.sql.json  
+OPTIONS
+(path "file:/home/hadoop/spark/examples/src/main/resources/people.json"); 
+
+show tables; 
+desc tables; 
+
+select * from test;  
+select name, age from test; 
+exit;
+
+-----------------------------------------------------------------------------
+$bin/spark-shell 
+
+val df = spark.read.json("file:/home/hadoop/spark/examples/src/main/resources/people.json")
+df.show()
+
+import spark.implicits._
+df.printSchema()
+df.select("name").show()
+df.select($"name", $"age" + 1).show()
+df.filter($"age" > 21).show()
+df.groupBy("age").count().show()
+

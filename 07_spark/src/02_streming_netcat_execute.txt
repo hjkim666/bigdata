@@ -44,7 +44,9 @@ spark-submit --master  spark://hadoop01:7077  --class   edu.jaen.spark.Streaming
 spark-submit   --class   edu.jaen.spark.StreamingFirst   
           /home/hadoop/example/wordcount2-uber-1.0-SNAPSHOT.jar   localhost  9999
  
-spark-submit   --class   edu.jaen.spark.StreamingFirst wordcount2-uber-1.0-SNAPSHOT.jar   localhost  9999
+
+spark-submit  --master spark://hadoop01:7077  
+  --class   edu.jaen.spark.StreamingFirst wordcount2-uber-1.0-SNAPSHOT.jar   localhost  9999
  
 
 
