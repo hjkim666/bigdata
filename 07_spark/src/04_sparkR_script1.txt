@@ -1,0 +1,71 @@
+###################################################
+#1. Spark DataFrame programming with R - Basics
+###################################################
+
+DATA_DIR <- "file:/home/hadoop/example/data/"
+acTransDF <- read.json(paste(DATA_DIR, "TransList1.json", sep = ""))
+print(acTransDF)
+showDF(acTransDF)
+
+createOrReplaceTempView(acTransDF, "trans")
+goodTransRecords <- sql("SELECT AccNo, TranAmount FROM trans WHERE AccNo like 'SB%' AND TranAmount > 0")
+createOrReplaceTempView(goodTransRecords, "goodtrans")
+showDF(goodTransRecords)
+
+highValueTransRecords <- sql("SELECT AccNo, TranAmount FROM goodtrans WHERE TranAmount > 1000")
+showDF(highValueTransRecords)
+badAccountRecords <- sql("SELECT AccNo, TranAmount FROM trans WHERE AccNo NOT like 'SB%'")
+showDF(badAccountRecords)
+badAmountRecords <- sql("SELECT AccNo, TranAmount FROM trans WHERE TranAmount < 0")
+showDF(badAmountRecords)
+
+badTransRecords <- union(badAccountRecords, badAmountRecords)
+showDF(badTransRecords)
+sumAmount <- sql("SELECT sum(TranAmount) as sum FROM goodtrans")
+showDF(sumAmount)
+maxAmount <- sql("SELECT max(TranAmount) as max FROM goodtrans")
+showDF(maxAmount)
+minAmount <- sql("SELECT min(TranAmount)as min FROM goodtrans")
+showDF(minAmount)
+goodAccNos <- sql("SELECT DISTINCT AccNo FROM trans WHERE AccNo like 'SB%' ORDER BY AccNo")
+showDF(goodAccNos)
+
+
+
+
+
+###################################################
+# 2.Aggregations
+###################################################
+acTransDFForAgg <- read.json(paste(DATA_DIR, "TransList2.json", sep = ""))
+createOrReplaceTempView(acTransDFForAgg, "transnew")
+showDF(acTransDFForAgg)
+acSummary <- sql("SELECT AccNo, sum(TranAmount) as TransTotal FROM transnew GROUP BY AccNo")
+showDF(acSummary)
+acSummaryFromAPI <- agg(groupBy(acTransDFForAgg, "AccNo"), TranAmount="sum")
+showDF(acSummaryFromAPI)
+
+
+
+###################################################
+# 3. Multi-data source joins
+###################################################
+
+acMasterDF <- read.json(paste(DATA_DIR, "MasterList.json", sep = ""))
+showDF(acMasterDF)
+createOrReplaceTempView(acMasterDF, "master")
+acBalDF <- read.json(paste(DATA_DIR, "BalList.json", sep = ""))
+showDF(acBalDF)
+createOrReplaceTempView(acBalDF, "balance")
+acDetail <- sql("SELECT master.AccNo, FirstName, LastName, BalAmount FROM master, balance WHERE master.AccNo = balance.AccNo ORDER BY BalAmount DESC")
+showDF(acDetail)
+write.parquet(acDetail, "r.acdetails.parquet")
+acDetailFromFile <- read.parquet("r.acdetails.parquet")
+showDF(acDetailFromFile)
+acBalDFWithDiffColName <- selectExpr(acBalDF, "AccNo as AccNoBal", "BalAmount")
+showDF(acBalDFWithDiffColName)
+acDetailFromAPI <- join(acMasterDF, acBalDFWithDiffColName, acMasterDF$AccNo == acBalDFWithDiffColName$AccNoBal)
+showDF(acDetailFromAPI)
+acDetailFromAPIRequiredFields <- select(acDetailFromAPI, "AccNo", "FirstName", "LastName", "BalAmount")
+showDF(acDetailFromAPIRequiredFields)
+
