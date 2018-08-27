@@ -1,0 +1,14 @@
+people = {
+      'Kim':{
+            'phone':'1234',
+            'addr':'seoul'
+            },
+      'Lee':{
+            'phone':'5678',
+            'addr':'pusan'
+            },
+      'Park':{
+            'phone':'9090',
+            'addr':'daejeon'
+            },
+      }
