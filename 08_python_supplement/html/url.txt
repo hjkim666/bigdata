@@ -1,0 +1,10 @@
+http://api.aoikujira.com/ip/ini
+
+http://www.kma.go.kr/weather/forecast/mid-term-rss3.jsp
+
+http://info.finance.naver.com/marketindex/
+
+https://api.github.com/repositories
+
+http://www.chicagomag.com/Chicago-Magazine/November-2012/Best-Sandwiches-Chicago/
+

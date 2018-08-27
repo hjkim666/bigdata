@@ -1,0 +1,29 @@
+<response>
+	<header>
+		<resultCode>00</resultCode>
+		<resultMsg>NORMAL SERVICE.</resultMsg>
+	</header>
+	<body>
+		<items>
+			<item>
+				<balPayments>4938519466</balPayments>
+				<expCnt>606149</expCnt>
+				<expDlr>36267364829</expDlr>
+				<impCnt>1189202</impCnt>
+				<impDlr>31321900755</impDlr>
+				<year>2016.01</year>
+			</item>
+			<item>
+				<balPayments>4938519466</balPayments>
+				<expCnt>606149</expCnt>
+				<expDlr>36260420221</expDlr>
+				<impCnt>1189202</impCnt>
+				<impDlr>31321900755</impDlr>
+				<year>총계</year>
+			</item>
+		</items>
+		<numOfRows>10</numOfRows>
+		<pageNo>1</pageNo>
+		<totalCount>18</totalCount>
+	</body>
+</response>

@@ -1,0 +1,5 @@
+<html><body>
+  <h1>파이썬스크래핑테스트?</h1>
+  <p>Beautifulsoup을 이용하기</p>
+  <p>특정 부분 추출하기 </p>
+</body></html>
