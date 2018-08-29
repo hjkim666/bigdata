@@ -1,0 +1,1 @@
+hist(BMI, breaks=20, main="Breaks=20")
